@@ -1,0 +1,20 @@
+{application, formulerl,
+ [{description, "An OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, { formulerl_app, []}},
+  {applications,
+   [kernel,
+    stdlib,
+    compiler,
+    syntax_tools,
+    merl
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {maintainers, []},
+  {licenses, []},
+  {links, []}
+ ]}.
+
