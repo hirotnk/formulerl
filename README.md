@@ -76,7 +76,7 @@ ok
 Build
 -----
 
-    $ rebar3 compile
+    $ ./rebar co
 
 
 
