@@ -1,4 +1,3 @@
-
 Definitions.
 
 D = [0-9]+
@@ -24,6 +23,7 @@ false      : {token, {'false', TokenLine}}.
 \>         : {token, {'>', TokenLine}}.
 \<=        : {token, {'<=', TokenLine}}.
 \>=        : {token, {'>=', TokenLine}}.
+\^         : {token, {'^', TokenLine}}.
 \+         : {token, {'+', TokenLine}}.
 \-         : {token, {'-', TokenLine}}.
 \*         : {token, {'*', TokenLine}}.
@@ -31,16 +31,9 @@ false      : {token, {'false', TokenLine}}.
 {D}        : {token, {integer, list_to_integer(TokenChars), TokenLine}}.
 {D}\.{D}   : {token, {float, list_to_float(TokenChars), TokenLine}}.
 {L}        : {token, {identifier, TokenChars, TokenLine}}.
-("[^"]*")  : {token, {string,dropStrEscape(TokenChars),TokenLen}}.
 
 
 {S}  : skip_token.
 
 Erlang code.
-
-dropStrEscape("\"" ++ Str) ->
-  dropStrEscape(lists:reverse(Str));
-dropStrEscape(Str) -> Str.
-
-
 

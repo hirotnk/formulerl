@@ -71,7 +71,14 @@ compile({CompOP, LeftTree, RightTree}, Seq, Functions) when CompOP == '==';
   FuncName = lists:concat(["compile_comp", Seq2]),
   FuncBodyList =
     [
-      "(KVs) -> '@left_func' (KVs) " ++ atom_to_list(CompOP) ++ " '@right_func' (KVs)"
+      "(KVs) -> '@left_func' (KVs) "
+      ++
+      case CompOP of
+        '<=' -> "=<";
+        _    -> atom_to_list(CompOP)
+      end
+      ++
+      " '@right_func' (KVs)"
     ],
   Env =
     [
@@ -84,13 +91,19 @@ compile({CompOP, LeftTree, RightTree}, Seq, Functions) when CompOP == '==';
 compile({ArithOP, LeftTree, RightTree}, Seq, Functions) when ArithOP == '+';
                                                              ArithOP == '-';
                                                              ArithOP == '*';
-                                                             ArithOP == '/' ->
+                                                             ArithOP == '/';
+                                                             ArithOP == '^' ->
   {ok, LFuncName, LeftAst, Seq1} = compile(LeftTree, Seq, Functions),
   {ok, RFuncName, RightAst, Seq2} = compile(RightTree, Seq1, LeftAst),
   FuncName = lists:concat(["compile_comp", Seq2]),
   FuncBodyList =
     [
-      "(KVs) -> '@left_func' (KVs) " ++ atom_to_list(ArithOP) ++ " '@right_func' (KVs)"
+      case ArithOP of
+        '^' -> "(KVs) -> math:pow('@left_func' (KVs), '@right_func' (KVs))";
+        _   -> "(KVs) -> '@left_func' (KVs) "
+               ++ atom_to_list(ArithOP) ++
+               " '@right_func' (KVs)"
+      end
     ],
   Env =
     [

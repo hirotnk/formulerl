@@ -24,6 +24,7 @@ Terminals
   '-'
   '*'
   '/'
+  '^'
   '=='
   '!='
   integer
@@ -38,6 +39,7 @@ Nonassoc 200 '==' '!='.
 Nonassoc 300 '<' '>' '<=' '>='.
 Left 400 '+' '-'.
 Left 500 '*' '/'.
+Nonassoc 600 '^'.
 
 Statements -> Statement and_op Statements : {and_op, '$1','$3'}.
 Statements -> Statement or_op Statements  : {or_op, '$1','$3'}.
@@ -56,6 +58,7 @@ CompExpr -> CompExpr '<=' CompExpr        : {'<=', '$1', '$3'}.
 CompExpr -> CompExpr '>=' CompExpr        : {'>=', '$1', '$3'}.
 CompExpr -> ArithExpr                     : '$1'.
 
+ArithExpr -> ArithExpr '^'  ArithExpr     : {'^',  '$1', '$3'}.
 ArithExpr -> ArithExpr '+'  ArithExpr     : {'+',  '$1', '$3'}.
 ArithExpr -> ArithExpr '-'  ArithExpr     : {'-',  '$1', '$3'}.
 ArithExpr -> ArithExpr '*'  ArithExpr     : {'*',  '$1', '$3'}.
