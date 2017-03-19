@@ -48,7 +48,7 @@ compile({identifier, Id, _}, Seq, Functions) ->
 
 compile({Num, Val, _}, Seq, Functions) when Num == float;
                                             Num == integer ->
-  FuncName = lists:concat(["compile_float", Seq]),
+  FuncName = lists:concat(["compile_", atom_to_list(Num), Seq]),
   FuncBodyList =
     [
       "(_KVs) -> '@val'"
