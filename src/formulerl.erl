@@ -74,6 +74,7 @@ compile({CompOP, LeftTree, RightTree}, Seq, Functions) when CompOP == '==';
       "(KVs) -> '@left_func' (KVs) "
       ++
       case CompOP of
+        '!=' -> "/=";
         '<=' -> "=<";
         _    -> atom_to_list(CompOP)
       end
