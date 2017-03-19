@@ -1,4 +1,4 @@
--module(formulerl).
+-module(formulerl_beam).
 
 -export([
     compile/2
