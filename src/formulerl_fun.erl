@@ -4,6 +4,11 @@
     compile/1
   ]).
 
+compile(Source) when is_list(Source) ->
+  {ok, Tokens, _} = formulerl_lexer:string(Source),
+  {ok, Tree} = formulerl_parser:parse(Tokens),
+  compile(Tree);
+
 compile(Tree) ->
   {ok, to_fun(Tree)}.
 
